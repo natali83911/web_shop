@@ -12,11 +12,9 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
-
     @property
     def price(self):
         return self.__price
-
 
     @price.setter
     def price(self, new_price):
@@ -24,14 +22,15 @@ class Product:
             print("Цена не должна быть нулевая или отрицательная")
             return
         if new_price < self.__price:
-            answer = input(f"Новая цена {new_price} ниже текущей {self.__price}. Подтвердите изменение (y/n): ").lower()
-            if answer != 'y':
+            answer = input(
+                f"Новая цена {new_price} ниже текущей {self.__price}. Подтвердите изменение (y/n): "
+            ).lower()
+            if answer != "y":
                 print("Изменение цены отменено")
                 return
 
         self.__price = new_price
         print(f"Цена успешно изменена на {self.__price}")
-
 
     @classmethod
     def new_product(cls, products_list, name, description, price, quantity):
