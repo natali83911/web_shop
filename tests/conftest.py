@@ -11,7 +11,7 @@ def product_unit() -> Product:
 
 
 @pytest.fixture
-def product_category() -> Category:
+def product_category(product_unit) -> Category:
     """осуществляет возврат Класс Сategory"""
-    products = [Product("Iphone 15", "Smartphone", 115450, 2)]
+    products = [product_unit]
     return Category("Мобильная электроника", "Smartphone", products)
