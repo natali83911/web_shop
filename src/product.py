@@ -33,18 +33,22 @@ class Product:
         print(f"Цена успешно изменена на {self.__price}")
 
     @classmethod
-    def new_product(cls, products_list, name, description, price, quantity):
+    def new_product(cls, products_list, products_dict):
         """
         Добавляет новый продукт в список или обновляет существующий:
         - Если продукт с таким именем найден, увеличивает quantity, а цену делает максимальной.
         - Если не найден - добавляет новый продукт.
         """
+        name = products_dict["name"]
+        description = products_dict["description"]
+        price = float(products_dict["price"])
+        quantity = int(products_dict["quantity"])
         for product in products_list:
             if product.name == name:
                 product.quantity += quantity
                 product.price = max(product.price, price)
                 return product
 
-        new_product = cls(name, description, price, quantity)
+        new_product = cls(name=name, description=description, price=price, quantity=quantity)
         products_list.append(new_product)
         return new_product
