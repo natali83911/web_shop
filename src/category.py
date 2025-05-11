@@ -24,8 +24,11 @@ class Category:
             products_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
         return products_str
 
-    def add_product(self, new_product):
-        self.__products.append(new_product)
+    def add_product(self, product):
+        """Метод добавления нового продукта"""
+        if not isinstance(product, Product):
+            raise TypeError("Можно добавлять только объекты класса Product или его наследников.")
+        self.__products.append(product)
         Category.product_count += 1
 
     @property
