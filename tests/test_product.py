@@ -1,5 +1,5 @@
 from unittest.mock import patch
-
+import pytest
 from src.category import Category
 from src.product import Product
 
@@ -104,3 +104,25 @@ def test_products_list_property_returns_list(product_category: Category) -> None
     products_list = product_category.products_list
     assert isinstance(products_list, list)
     assert all(isinstance(prod, Product) for prod in products_list)
+
+
+def test_str_product(product_unit):
+    expected_str = "Iphone 15, 115450 руб. Остаток: 2 шт."
+    assert str(product_unit) == expected_str
+
+def test_add_products(product_unit, product_unit_2):
+    expected_total = product_unit.price * product_unit.quantity + product_unit_2.price * product_unit_2.quantity
+    assert product_unit + product_unit_2 == expected_total
+
+def test_add_invalid_type(product_unit):
+    # сложение с не Product возникает TypeError
+    with pytest.raises(TypeError):
+        product_unit + 10
+
+def test_category_products_count(product_category, product_unit):
+    # категория содержит правильный продукт
+    assert product_unit in product_category.products_list
+    # строковое представление категории (если реализован __str__)
+    total_quantity = sum(p.quantity for p in product_category.products_list)
+    expected_str = f"{product_category.name}, количество продуктов: {total_quantity} шт."
+    assert str(product_category) == expected_str
