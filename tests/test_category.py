@@ -78,3 +78,15 @@ def test_products_list_property_returns_list(product_category: Category) -> None
     products_list = product_category.products_list
     assert isinstance(products_list, list)
     assert all(isinstance(prod, Product) for prod in products_list)
+
+
+def test_category_str(category, products_list):
+    total_quantity = sum(p.quantity for p in products_list)
+    expected_str = f"{category.name}, количество продуктов: {total_quantity} шт."
+    assert str(category) == expected_str
+
+
+def test_category_str_empty():
+    empty_category = Category("Пустая категория", "Нет товаров", [])
+    expected_str = f"{empty_category.name}, количество продуктов: 0 шт."
+    assert str(empty_category) == expected_str

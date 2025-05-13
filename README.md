@@ -1,7 +1,7 @@
 # Web_shop
 
 ## Описание
- В этом проекте реализованы два класса:
+ В этом проекте реализованы классы:
 1. Product - представляет товар с атрибутами:
    name - название товара,
    description - описание,
@@ -18,21 +18,24 @@
  product_count - общее количество товаров во всех категориях.
  Эти атрибуты автоматически обновляются при создании новых объектов Category.
 
+3. CategoryIterator - Перебирает товары одной категории и возвращает очередной товар категории
+
 ## Структура проекта
 ~~~
 project_root/
 │
 ├── src/
-│   ├── product.py          # Класс Product
-│   ├── category.py         # Класс Category
-│   └── utils.py            # Функция загрузки из JSON
+│   ├── product.py               # Класс Product
+│   ├── category.py              # Класс Category
+    ├── category_iterator        # Класс CategoryIterator
+│   └── utils.py                 # Функция загрузки из JSON
 │
 ├── tests/
-│   └── test_product.py     # Тесты
+│   └── test_product.py          # Тесты
 │   ├── test_category.py
-│
+│   └── test_category_iterator
 ├── data/
-│   └── products.json       # JSON с данными
+│   └── products.json            # JSON с данными
 │
 └── README.md
 
@@ -83,6 +86,11 @@ categories = create_object_from_json('path/to/products.json')
 
 for category in categories:
     print(f"Категория: {category.name}, товаров: {len(category.products)}")
+    
+iterator = CategoryIterator(category)
+
+    for product in iterator:
+        print(product)
 ~~~
 ## Тестирование
 В проекте используются тесты, написанные с использованием `pytest`. Для запуска тестов выполните следующие шаги:
