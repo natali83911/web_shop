@@ -35,3 +35,10 @@ def products_list():
 @pytest.fixture
 def category(products_list):
     return Category("Мобильная электроника", "Смартфоны", products_list)
+
+
+@pytest.fixture
+def product_category_for_iter(product_unit, product_unit_2) -> Category:
+    """Фикстура возвращает категорию с двумя продуктами"""
+    products = [product_unit, product_unit_2]
+    return Category("Мобильная электроника", "Smartphone", products)
