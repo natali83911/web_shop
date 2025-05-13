@@ -12,6 +12,17 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+
+    def __str__(self):
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+
+    def __add__(self, other):
+        if not isinstance(other, Product):
+            raise TypeError("Можно суммировать только объекты от класса Product или его подклассов")
+        total_price = self.price * self.quantity + other.price * other.quantity
+        return total_price
+
     @property
     def price(self):
         return self.__price
@@ -52,3 +63,6 @@ class Product:
         new_product = cls(name=name, description=description, price=price, quantity=quantity)
         products_list.append(new_product)
         return new_product
+
+
+
