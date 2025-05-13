@@ -1,5 +1,7 @@
 from unittest.mock import patch
+
 import pytest
+
 from src.category import Category
 from src.product import Product
 
@@ -110,14 +112,17 @@ def test_str_product(product_unit):
     expected_str = "Iphone 15, 115450 руб. Остаток: 2 шт."
     assert str(product_unit) == expected_str
 
+
 def test_add_products(product_unit, product_unit_2):
     expected_total = product_unit.price * product_unit.quantity + product_unit_2.price * product_unit_2.quantity
     assert product_unit + product_unit_2 == expected_total
+
 
 def test_add_invalid_type(product_unit):
     # сложение с не Product возникает TypeError
     with pytest.raises(TypeError):
         product_unit + 10
+
 
 def test_category_products_count(product_category, product_unit):
     # категория содержит правильный продукт

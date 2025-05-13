@@ -85,6 +85,7 @@ def test_category_str(category, products_list):
     expected_str = f"{category.name}, количество продуктов: {total_quantity} шт."
     assert str(category) == expected_str
 
+
 def test_category_str_empty():
     empty_category = Category("Пустая категория", "Нет товаров", [])
     expected_str = f"{empty_category.name}, количество продуктов: 0 шт."

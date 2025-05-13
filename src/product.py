@@ -12,10 +12,8 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
-
     def __str__(self):
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
-
 
     def __add__(self, other):
         if not isinstance(other, Product):
@@ -63,6 +61,3 @@ class Product:
         new_product = cls(name=name, description=description, price=price, quantity=quantity)
         products_list.append(new_product)
         return new_product
-
-
-

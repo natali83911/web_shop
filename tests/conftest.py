@@ -31,7 +31,7 @@ def products_list():
         Product("Xiaomi Mi", "Smartphone", 50000, 5),
     ]
 
+
 @pytest.fixture
 def category(products_list):
     return Category("Мобильная электроника", "Смартфоны", products_list)
-
