@@ -13,12 +13,27 @@
    description - описание,
    products - список объектов Product в категории.
 
- Класс Category содержит два атрибута класса:
- category_count - общее количество созданных категорий,
- product_count - общее количество товаров во всех категориях.
- Эти атрибуты автоматически обновляются при создании новых объектов Category.
+   Класс Category содержит два атрибута класса:
+   - category_count - общее количество созданных категорий,
+   - product_count - общее количество товаров во всех категориях.
+   - Эти атрибуты автоматически обновляются при создании новых объектов Category.
 
-3. CategoryIterator - Перебирает товары одной категории и возвращает очередной товар категории
+3. Smartphone - класс-наследник Product, добавлены атрибуты:
+   efficiency - производительность 
+   model - модель 
+   memory - объем встроенной памяти
+   color - цвет 
+
+4. LawnGrass - класс-наследник Product, добавлены атрибуты:
+   country - страна-производитель 
+   germination_period - срок прорастания    
+   color - цвет  
+
+- Классы `LawnGrass` и `Smartphone` наследуются от `Product` и расширяют функциональность.
+- Категории позволяют группировать продукты и отслеживать их количество.
+- Перегружен оператор `+` для сложения стоимости продуктов одного типа.
+
+5. CategoryIterator - Перебирает товары одной категории и возвращает очередной товар категории
 
 ## Структура проекта
 ~~~
@@ -27,12 +42,16 @@ project_root/
 ├── src/
 │   ├── product.py               # Класс Product
 │   ├── category.py              # Класс Category
-    ├── category_iterator        # Класс CategoryIterator
+│   ├── category_iterator        # Класс CategoryIterator
+│   ├── smartphone               # Класс Smartphone
+│   ├── lawn_grass               # Класс LawnGrass
 │   └── utils.py                 # Функция загрузки из JSON
 │
 ├── tests/
 │   └── test_product.py          # Тесты
 │   ├── test_category.py
+│   ├── test_smartphone
+│   ├── test_lawn_grass
 │   └── test_category_iterator
 ├── data/
 │   └── products.json            # JSON с данными
@@ -77,6 +96,17 @@ category = Category('Category1', 'Category description', [product1, product2])
 print(category.name)  # Category1
 print(Category.category_count)  # 1
 print(Category.product_count)   # 2
+
+grass = LawnGrass('Газонная трава', 'Описание', 15.0, 10, 'Россия', '7 дней', 'Зеленый')
+phone = Smartphone('Samsung Galaxy S23', 'Флагман', 90000, 5, 'A+', 'S23', '256GB', 'Черный')
+
+# Создание категории и добавление продуктов
+category_grass = Category('Газонная трава', 'Категория газонной травы', [grass])
+category_smartphones = Category('Смартфоны', 'Категория смартфонов', [phone])
+
+print(category_grass.name) # Газонная трава
+print(Category.category_count) # Количество категорий
+print(Category.product_count) # Количество продуктов
 ~~~
 Загрузка данных из JSON
 ~~~
