@@ -35,11 +35,18 @@
 
 5. CategoryIterator - Перебирает товары одной категории и возвращает очередной товар категории
 
+6. Order - класс для вывода оформления заказа
+
+7. BaseProduct, BaseOrderCategory - базовые классы для классов Product, Order, Category 
+
 ## Структура проекта
 ~~~
 project_root/
 │
 ├── src/
+│   ├── base_order_category.py   # Класс базовый для классов Category, Order и их наследников
+│   ├── base_product.py          # Класс базовый для класса Product и его наследников
+│   ├── order.py                 # Класс Order для формирования заказа
 │   ├── product.py               # Класс Product
 │   ├── category.py              # Класс Category
 │   ├── category_iterator        # Класс CategoryIterator
@@ -52,6 +59,7 @@ project_root/
 │   ├── test_category.py
 │   ├── test_smartphone
 │   ├── test_lawn_grass
+│   ├── test_order
 │   └── test_category_iterator
 ├── data/
 │   └── products.json            # JSON с данными
