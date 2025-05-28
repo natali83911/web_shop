@@ -1,4 +1,5 @@
 from src.base_order_category import BaseOrderCategory
+from src.exceptions import ZeroProductQuantity
 from src.product import Product
 
 
@@ -31,19 +32,31 @@ class Category(BaseOrderCategory):
 
     def add_product(self, product: Product) -> None:
         """Метод для добавления товаров в категорию"""
-        if not isinstance(product, Product):
-            raise TypeError("Можно добавлять только объекты от класса Product или его подклассов")
+        try:
+            if not isinstance(product, Product):
+                raise TypeError("Можно добавлять только объекты от класса Product или его подклассов")
 
-        # Проверка на существующий товар
-        for existing_product in self.__products:
-            if existing_product.name == product.name:
-                existing_product.quantity += product.quantity
-                if product.price > existing_product.price:
-                    existing_product.price = product.price
-                return
+            if product.quantity == 0:
+                raise ZeroProductQuantity()
 
-        self.__products.append(product)
-        Category.product_count += 1
+            # Проверка на существующий товар
+            for existing_product in self.__products:
+                if existing_product.name == product.name:
+                    existing_product.quantity += product.quantity
+                    if product.price > existing_product.price:
+                        existing_product.price = product.price
+                    print(f"Товар '{product.name}' успешно добавлен в категорию (обновлено количество)")
+                    return
+
+            self.__products.append(product)
+            Category.product_count += 1
+            print(f"Товар '{product.name}' успешно добавлен в категорию")
+
+        except ZeroProductQuantity as e:
+            print(f"Ошибка: {e}")
+            raise
+        finally:
+            print("Обработка добавления товара завершена")
 
     def can_add_product(self, product) -> bool:
         """Проверка возможности добавления продукта"""
@@ -52,3 +65,9 @@ class Category(BaseOrderCategory):
     @property
     def products_list(self):
         return self.__products
+
+    def middle_price(self):
+        try:
+            return sum([product.price for product in self.__products]) / len(self.__products)
+        except ZeroDivisionError:
+            return 0

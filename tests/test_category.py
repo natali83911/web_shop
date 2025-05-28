@@ -1,6 +1,7 @@
 import pytest
 
 from src.category import Category
+from src.exceptions import ZeroProductQuantity
 from src.product import Product
 
 
@@ -90,3 +91,32 @@ def test_category_str_empty():
     empty_category = Category("Пустая категория", "Нет товаров", [])
     expected_str = f"{empty_category.name}, количество продуктов: 0 шт."
     assert str(empty_category) == expected_str
+
+
+def test_middle_price(category, category_empty_list):
+    assert category.middle_price() == 85150
+    assert category_empty_list.middle_price() == 0
+
+
+def test_custom_exception(capsys, category):
+    assert len(category.products_list) == 3
+
+    product_add1 = Product("Samsung S23", "Smartphone", 90000, 0)
+    try:
+        category.add_product(product_add1)
+    except ZeroProductQuantity:
+        pass
+    message = capsys.readouterr()
+    assert message.out.strip().split("\n")[-2] == "Ошибка: Товар с нулевым количеством не может быть добавлен"
+    assert message.out.strip().split("\n")[-1] == "Обработка добавления товара завершена"
+
+    product_add2 = Product("Samsung S23", "Smartphone", 90000, 5)
+    try:
+        category.add_product(product_add2)
+    except ZeroProductQuantity:
+        pass
+    message = capsys.readouterr()
+    assert (
+        message.out.strip().split("\n")[-2]
+        == "Товар 'Samsung S23' успешно добавлен в категорию (обновлено количество)"
+    )
