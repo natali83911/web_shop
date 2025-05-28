@@ -39,6 +39,7 @@
 
 7. BaseProduct, BaseOrderCategory - базовые классы для классов Product, Order, Category 
 
+8. ZeroProductQuantity - класс исключения 
 ## Структура проекта
 ~~~
 project_root/
@@ -52,6 +53,7 @@ project_root/
 │   ├── category_iterator        # Класс CategoryIterator
 │   ├── smartphone               # Класс Smartphone
 │   ├── lawn_grass               # Класс LawnGrass
+│   ├── exceptions               # Класс ZeroProductQuantity         
 │   └── utils.py                 # Функция загрузки из JSON
 │
 ├── tests/
