@@ -24,6 +24,17 @@ def test_wrong_product_unit(product_unit: Product) -> None:
     assert not product_unit.quantity == 1
 
 
+def test_product_init_zero_quantity():
+    product = Product("Телефон", "Смартфон", 1000.0, 0)
+    assert product.quantity == 0
+
+
+def test_product_init_negative_quantity_raises():
+    with pytest.raises(ValueError) as exc:
+        Product("Телефон", "Смартфон", 1000.0, -1)
+    assert str(exc.value) == "Товар с нулевым количеством не может быть добавлен"
+
+
 def test_new_product_add_and_update():
     products_list = []
     data1 = {"name": "Samsung Galaxy S23", "description": "Flagship", "price": 180000.0, "quantity": 5}

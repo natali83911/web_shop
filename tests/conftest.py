@@ -64,3 +64,8 @@ def grass1():
 @pytest.fixture
 def grass2():
     return LawnGrass("Grass2", "Desc2", 15.0, 3, "CountryB", "10 days", "Light Green")
+
+
+@pytest.fixture
+def category_empty_list():
+    return Category("Мобильная электроника", "Смартфоны", [])
